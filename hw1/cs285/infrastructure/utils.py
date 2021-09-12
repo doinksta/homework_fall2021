@@ -74,7 +74,8 @@ def sample_n_trajectories(env, policy, ntraj, max_path_length, render=False, ren
     """
     paths = []
 
-    TODO
+    for i in range(ntraj):
+
 
     return paths
 
