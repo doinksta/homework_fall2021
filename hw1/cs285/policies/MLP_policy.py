@@ -81,7 +81,9 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
             observation = obs[None]
 
         # TODO return the action that the policy prescribes
-        raise NotImplementedError
+        self.eval()
+        with torch.no_grad():
+            return self(observation).cpu().numpy()
 
     # update/train this policy
     def update(self, observations, actions, **kwargs):
