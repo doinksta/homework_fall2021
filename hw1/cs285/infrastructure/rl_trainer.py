@@ -198,8 +198,6 @@ class RL_Trainer(object):
             train_log = self.agent.train(ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch)
             all_logs.append(train_log)
 
-            print(len(all_logs))
-            print(self.params['num_agent_train_steps_per_iter'])
         return all_logs
 
     def do_relabel_with_expert(self, expert_policy, paths):
