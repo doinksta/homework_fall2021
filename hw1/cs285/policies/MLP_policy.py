@@ -83,23 +83,15 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
         # TODO return the action that the policy prescribes
         observation = ptu.from_numpy(observation)
 
-        action = self.forward(observation)
-        return ptu.to_numpy(action)
-
-        # if self.discrete:
-        #     self.logits_na.eval()
-        #     with torch.no_grad():
-        #         return self.logits_na(observation).cpu().numpy()
-        # else:
-        #     self.mean_net.eval()
-        #
-        #     with torch.no_grad():
-        #         mean = self.mean_net(observation)
-        #
-        #     distrib = distributions.Normal(mean, torch.exp(self.logstd))
-        #     return distrib.rsample().detach().cpu().numpy()
-
-
+        if self.discrete:
+            self.logits_na.eval()
+            with torch.no_grad():
+                return ptu.to_numpy(self.logits_na(observation))
+        else:
+            self.mean_net.eval()
+            with torch.no_grad():
+                distrib = distributions.Normal(self.mean_net(observation), self.logstd.exp())
+                return ptu.to_numpy(distrib.sample())
 
     # update/train this policy
     def update(self, observations, actions, **kwargs):
@@ -116,8 +108,7 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
             return self.logits_na(observation)
         else:
             self.mean_net.train()
-            return self.mean_net(observation)
-            # return torch.distributions.Normal(self.mean_net(observation), torch.exp(self.logstd))
+            return distributions.Normal(self.mean_net(observation), self.logstd.exp())
 
 
 #####################################################
@@ -135,26 +126,12 @@ class MLPPolicySL(MLPPolicy):
         observations = ptu.from_numpy(observations)
         actions = ptu.from_numpy(actions)
 
-        # # TODO: update the policy and return the loss
-        # epoch_loss = 0
-        #
-        # for i in range(observations.shape[0]):
-        #     observation = observations[i, :]
-        #     action = actions[i, :]
-        #
-        #     if self.discrete:
-        #         loss = self.loss(self.forward(observation), action)
-        #     else:
-        #         loss = -self.forward(observation).log_prob(action).sum()
-        #
-        #     self.optimizer.zero_grad()
-        #     loss.backward()
-        #     epoch_loss = epoch_loss + loss
-        #     self.optimizer.step()
-        #
-        # epoch_loss = epoch_loss / len(observations)
+        # TODO: update the policy and return the loss
 
-        loss = self.loss(actions, self.forward(observations))
+        if self.discrete:
+            loss = self.loss(self.forward(observations), actions)
+        else:
+            loss = -self.forward(observations).log_prob(actions).sum()
 
         self.optimizer.zero_grad()
         loss.backward()
