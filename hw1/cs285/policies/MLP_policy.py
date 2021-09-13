@@ -81,6 +81,8 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
             observation = obs[None]
 
         # TODO return the action that the policy prescribes
+        observation = ptu.from_numpy(observation)
+
         if self.discrete:
             self.logits_na.eval()
             with torch.no_grad():
@@ -89,10 +91,10 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
             self.mean_net.eval()
 
             with torch.no_grad():
-                mean = self.mean_net(observation).cpu().numpy()
+                mean = self.mean_net(observation)
 
-            distrib = distributions.Normal(mean, self.logstd.exp())
-            return distrib.rsample()
+            distrib = distributions.Normal(mean, torch.exp(self.logstd))
+            return distrib.rsample().detach().cpu().numpy()
 
 
 
@@ -111,7 +113,7 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
             return self.logits_na(observation)
         else:
             self.mean_net.train()
-            return torch.distributions.Normal(self.mean_net(observation), self.logstd.exp())
+            return torch.distributions.Normal(self.mean_net(observation), torch.exp(self.logstd))
 
 
 #####################################################
@@ -126,20 +128,24 @@ class MLPPolicySL(MLPPolicy):
             self, observations, actions,
             adv_n=None, acs_labels_na=None, qvals=None
     ):
-        print(len(observations))
-        print(type(observations))
+        observations = ptu.from_numpy(observations)
+        actions = ptu.from_numpy(actions)
+
         # TODO: update the policy and return the loss
         epoch_loss = 0
 
-        for observation, action in zip(observations, actions):
+        for i in range(observations.shape[0]):
+            observation = observations[i, :]
+            action = actions[i, :]
+
             if self.discrete:
                 loss = -self.loss(self.forward(observation), action)
             else:
-                loss = -self.forward(observation).log_prob(action)
+                loss = -self.forward(observation).log_prob(action).sum()
 
             self.optimizer.zero_grad()
             loss.backward()
-            epoch_loss += loss.detatch().cpu().numpy().squeeze()
+            epoch_loss = epoch_loss + loss
             self.optimizer.step()
 
         epoch_loss = epoch_loss / len(observations)
