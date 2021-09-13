@@ -126,17 +126,25 @@ class MLPPolicySL(MLPPolicy):
             self, observations, actions,
             adv_n=None, acs_labels_na=None, qvals=None
     ):
+        print(len(observations))
+        print(type(observations))
         # TODO: update the policy and return the loss
-        if self.discrete:
-            loss = self.loss(self.forward(observations), actions)
-        else:
-            loss = -self.forward(observations).log_prob(actions)
+        epoch_loss = 0
 
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
+        for observation, action in zip(observations, actions):
+            if self.discrete:
+                loss = -self.loss(self.forward(observation), action)
+            else:
+                loss = -self.forward(observation).log_prob(action)
+
+            self.optimizer.zero_grad()
+            loss.backward()
+            epoch_loss += loss.detatch().cpu().numpy().squeeze()
+            self.optimizer.step()
+
+        epoch_loss = epoch_loss / len(observations)
 
         return {
             # You can add extra logging information here, but keep this line
-            'Training Loss': ptu.to_numpy(loss),
+            'Training Loss': ptu.to_numpy(epoch_loss),
         }
