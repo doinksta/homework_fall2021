@@ -83,18 +83,21 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
         # TODO return the action that the policy prescribes
         observation = ptu.from_numpy(observation)
 
-        if self.discrete:
-            self.logits_na.eval()
-            with torch.no_grad():
-                return self.logits_na(observation).cpu().numpy()
-        else:
-            self.mean_net.eval()
+        action = self.forward(observation)
+        return ptu.to_numpy(action)
 
-            with torch.no_grad():
-                mean = self.mean_net(observation)
-
-            distrib = distributions.Normal(mean, torch.exp(self.logstd))
-            return distrib.rsample().detach().cpu().numpy()
+        # if self.discrete:
+        #     self.logits_na.eval()
+        #     with torch.no_grad():
+        #         return self.logits_na(observation).cpu().numpy()
+        # else:
+        #     self.mean_net.eval()
+        #
+        #     with torch.no_grad():
+        #         mean = self.mean_net(observation)
+        #
+        #     distrib = distributions.Normal(mean, torch.exp(self.logstd))
+        #     return distrib.rsample().detach().cpu().numpy()
 
 
 
@@ -113,7 +116,8 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
             return self.logits_na(observation)
         else:
             self.mean_net.train()
-            return torch.distributions.Normal(self.mean_net(observation), torch.exp(self.logstd))
+            return self.mean_net(observation)
+            # return torch.distributions.Normal(self.mean_net(observation), torch.exp(self.logstd))
 
 
 #####################################################
@@ -131,26 +135,32 @@ class MLPPolicySL(MLPPolicy):
         observations = ptu.from_numpy(observations)
         actions = ptu.from_numpy(actions)
 
-        # TODO: update the policy and return the loss
-        epoch_loss = 0
+        # # TODO: update the policy and return the loss
+        # epoch_loss = 0
+        #
+        # for i in range(observations.shape[0]):
+        #     observation = observations[i, :]
+        #     action = actions[i, :]
+        #
+        #     if self.discrete:
+        #         loss = self.loss(self.forward(observation), action)
+        #     else:
+        #         loss = -self.forward(observation).log_prob(action).sum()
+        #
+        #     self.optimizer.zero_grad()
+        #     loss.backward()
+        #     epoch_loss = epoch_loss + loss
+        #     self.optimizer.step()
+        #
+        # epoch_loss = epoch_loss / len(observations)
 
-        for i in range(observations.shape[0]):
-            observation = observations[i, :]
-            action = actions[i, :]
+        loss = self.loss(actions, self.forward(observations))
 
-            if self.discrete:
-                loss = -self.loss(self.forward(observation), action)
-            else:
-                loss = -self.forward(observation).log_prob(action).sum()
-
-            self.optimizer.zero_grad()
-            loss.backward()
-            epoch_loss = epoch_loss + loss
-            self.optimizer.step()
-
-        epoch_loss = epoch_loss / len(observations)
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
 
         return {
             # You can add extra logging information here, but keep this line
-            'Training Loss': ptu.to_numpy(epoch_loss),
+            'Training Loss': ptu.to_numpy(loss),
         }
