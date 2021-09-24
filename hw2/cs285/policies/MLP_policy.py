@@ -86,7 +86,23 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
 
     # query the policy with observation(s) to get selected action(s)
     def get_action(self, obs: np.ndarray) -> np.ndarray:
-        # TODO: get this from HW1
+        if len(obs.shape) > 1:
+            observation = obs
+        else:
+            observation = obs[None]
+
+        # TODO return the action that the policy prescribes
+        observation = ptu.from_numpy(observation)
+
+        if self.discrete:
+            self.logits_na.eval()
+            with torch.no_grad():
+                return ptu.to_numpy(self.logits_na(observation))
+        else:
+            self.mean_net.eval()
+            with torch.no_grad():
+                distrib = distributions.Normal(self.mean_net(observation), self.logstd.exp())
+                return ptu.to_numpy(distrib.sample())
 
     # update/train this policy
     def update(self, observations, actions, **kwargs):
