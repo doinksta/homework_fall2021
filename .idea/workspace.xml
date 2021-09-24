@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="23694e62-aff4-40ba-91cd-52dba7337388" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hw2/cs285/infrastructure/rl_trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw2/cs285/infrastructure/rl_trainer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hw2/cs285/infrastructure/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw2/cs285/infrastructure/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hw2/cs285/policies/MLP_policy.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw2/cs285/policies/MLP_policy.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,9 +27,6 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$USER_HOME$/.local/lib/python3.6/site-packages/gym/__init__.py" root0="SKIP_INSPECTION" />
-  </component>
   <component name="ProjectId" id="1y11n8MojIiqwJ2h29YuiMyvnEK" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -41,7 +35,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../oz-sim" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/hw2" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

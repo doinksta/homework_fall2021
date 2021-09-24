@@ -69,13 +69,18 @@ class PGAgent(BaseAgent):
         # HINT3: q_values should be a 1D numpy array where the indices correspond to the same
         # ordering as observations, actions, etc.
 
+        n = len(rewards_list)
+        q_values = np.zeros(n)
+
         if not self.reward_to_go:
-            TODO
+            for reward_list in rewards_list:
+                q_values += np.array(self._discounted_return(reward_list))
 
         # Case 2: reward-to-go PG
         # Estimate Q^{pi}(s_t, a_t) by the discounted sum of rewards starting from t
         else:
-            TODO
+            for reward_list in rewards_list:
+                q_values += np.array(self._discounted_cumsum(reward_list))
 
         return q_values
 
@@ -160,6 +165,8 @@ class PGAgent(BaseAgent):
         """
 
         # TODO: create list_of_discounted_returns
+        discounted_return = sum([reward * self.gamma ** i for i, reward in enumerate(rewards)])
+        list_of_discounted_returns = [discounted_return for _ in range(len(rewards))]
 
         return list_of_discounted_returns
 
@@ -173,5 +180,14 @@ class PGAgent(BaseAgent):
         # TODO: create `list_of_discounted_returns`
         # HINT: it is possible to write a vectorized solution, but a solution
             # using a for loop is also fine
+        reversed_rewards = rewards.copy()
+        reversed_rewards.reverse()
+
+        list_of_discounted_cumsums = [reversed_rewards[0]]
+
+        for i in range(len(rewards) - 1):
+            list_of_discounted_cumsums.append(list_of_discounted_cumsums[i] * self.gamma + rewards[i + 1])
+
+        list_of_discounted_cumsums.reverse()
 
         return list_of_discounted_cumsums
