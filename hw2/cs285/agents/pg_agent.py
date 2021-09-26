@@ -45,10 +45,11 @@ class PGAgent(BaseAgent):
         # HINT1: use helper functions to compute qvals and advantages
         # HINT2: look at the MLPPolicyPG class for how to update the policy
             # and obtain a train_log
+
         qvals = self.calculate_q_vals(rewards_list)
         advantages = self.estimate_advantage(observations, rewards_list, qvals, terminals)
 
-
+        train_log = self.actor.update(observations, actions, advantages, q_values=qvals)
 
         return train_log
 
