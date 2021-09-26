@@ -9,4 +9,5 @@ ipython==6.4.0
 moviepy==1.0.0
 numpy==1.18
 box2d-py
+pandas
 
