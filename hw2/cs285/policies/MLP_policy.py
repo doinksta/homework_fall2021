@@ -91,18 +91,10 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
         else:
             observation = obs[None]
 
-        # TODO return the action that the policy prescribes
         observation = ptu.from_numpy(observation)
-
-        if self.discrete:
-            self.logits_na.eval()
-            with torch.no_grad():
-                return ptu.to_numpy(self.logits_na(observation))
-        else:
-            self.mean_net.eval()
-            with torch.no_grad():
-                distrib = distributions.Normal(self.mean_net(observation), self.logstd.exp())
-                return ptu.to_numpy(distrib.sample())
+        action_distribution = self(observation)
+        action = action_distribution.sample()  # don't bother with rsample
+        return ptu.to_numpy(action)
 
     # update/train this policy
     def update(self, observations, actions, **kwargs):
