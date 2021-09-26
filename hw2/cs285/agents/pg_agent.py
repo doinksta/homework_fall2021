@@ -195,13 +195,13 @@ class PGAgent(BaseAgent):
         # HINT: it is possible to write a vectorized solution, but a solution
             # using a for loop is also fine
         reversed_rewards = rewards.copy()
-        reversed_rewards.reverse()
+        reversed_rewards = np.flip(reversed_rewards)
 
         list_of_discounted_cumsums = [reversed_rewards[0]]
 
         for i in range(len(rewards) - 1):
             list_of_discounted_cumsums.append(list_of_discounted_cumsums[i] * self.gamma + reversed_rewards[i + 1])
 
-        list_of_discounted_cumsums.reverse()
+        list_of_discounted_cumsums = np.flip(list_of_discounted_cumsums)
 
         return list_of_discounted_cumsums
