@@ -98,7 +98,8 @@ def main():
     ### CREATE DIRECTORY FOR LOGGING
     ##################################
 
-    logdir_prefix = 'q2_pg_'  # keep for autograder
+    # logdir_prefix = 'q2_pg_'  # keep for autograder
+    logdir_prefix = ''  # keep for autograder
 
     data_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../../data')
 
