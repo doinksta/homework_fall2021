@@ -157,7 +157,8 @@ class MLPPolicyPG(MLPPolicy):
             ## HINT2: You will need to convert the targets into a tensor using
                 ## ptu.from_numpy before using it in the loss
 
-            TODO
+            pass
+            # TODO
 
         train_log = {
             'Training Loss': ptu.to_numpy(loss),
