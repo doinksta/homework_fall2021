@@ -25,6 +25,7 @@ plt.ylabel('Evaluation Average Return')
 plt.legend(bbox_to_anchor=(1.05, 1))
 
 plt.savefig('plots/exp1_sb.png', bbox_inches='tight')
+plt.close()
 
 # Experiment 1 LB
 filenames = [
@@ -46,3 +47,4 @@ plt.ylabel('Evaluation Average Return')
 plt.legend(bbox_to_anchor=(1.05, 1))
 
 plt.savefig('plots/exp1_lb.png', bbox_inches='tight')
+plt.close()
