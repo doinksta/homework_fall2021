@@ -69,18 +69,25 @@ class PGAgent(BaseAgent):
         # HINT3: q_values should be a 1D numpy array where the indices correspond to the same
         # ordering as observations, actions, etc.
 
-        n = len(rewards_list)
-        q_values = np.zeros(n)
+        q_values = None
 
         if not self.reward_to_go:
             for reward_list in rewards_list:
-                q_values += np.array(self._discounted_return(reward_list))
+                new_q_values = np.array(self._discounted_return(reward_list))
+                if q_values is None:
+                    q_values = new_q_values
+                else:
+                    q_values = np.concatenate((q_values, new_q_values))
 
         # Case 2: reward-to-go PG
         # Estimate Q^{pi}(s_t, a_t) by the discounted sum of rewards starting from t
         else:
             for reward_list in rewards_list:
-                q_values += np.array(self._discounted_cumsum(reward_list))
+                new_q_values = np.array(self._discounted_cumsum(reward_list))
+                if q_values is None:
+                    q_values = new_q_values
+                else:
+                    q_values = np.concatenate((q_values, new_q_values))
 
         return q_values
 
@@ -100,7 +107,7 @@ class PGAgent(BaseAgent):
             ## TODO: values were trained with standardized q_values, so ensure
                 ## that the predictions have the same mean and standard deviation as
                 ## the current batch of q_values
-            values = TODO
+            values = (values_unnormalized - np.mean(values_unnormalized)) / np.std(values_unnormalized) * np.std(q_values) + np.mean(q_values)
 
             if self.gae_lambda is not None:
                 ## append a dummy T+1 value for simpler recursive calculation
@@ -122,6 +129,11 @@ class PGAgent(BaseAgent):
                         ## 0 otherwise.
                     ## HINT 2: self.gae_lambda is the lambda value in the
                         ## GAE formula
+                    if terminals[i]:
+                        # last state in the trajectory
+                        pass
+                    else:
+                        # recursion happens here
 
                 # remove dummy advantage
                 advantages = advantages[:-1]
@@ -186,7 +198,7 @@ class PGAgent(BaseAgent):
         list_of_discounted_cumsums = [reversed_rewards[0]]
 
         for i in range(len(rewards) - 1):
-            list_of_discounted_cumsums.append(list_of_discounted_cumsums[i] * self.gamma + rewards[i + 1])
+            list_of_discounted_cumsums.append(list_of_discounted_cumsums[i] * self.gamma + reversed_rewards[i + 1])
 
         list_of_discounted_cumsums.reverse()
 
