@@ -97,9 +97,9 @@ filenames = [
     'experiment_csv/run-q4_search_b30000_lr0.005_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-08-02-tag-Eval_AverageReturn.csv',
     'experiment_csv/run-q4_search_b30000_lr0.01_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-08-18-tag-Eval_AverageReturn.csv',
     'experiment_csv/run-q4_search_b30000_lr0.02_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-08-32-tag-Eval_AverageReturn.csv',
-    # 'experiment_csv/run-q4_search_b10000_lr0.005_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-06-tag-Eval_AverageReturn.csv',
-    # 'experiment_csv/run-q4_search_b10000_lr0.01_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-28-tag-Eval_AverageReturn.csv',
-    # 'experiment_csv/run-q4_search_b10000_lr0.02_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-48-tag-Eval_AverageReturn.csv'
+    'experiment_csv/run-q4_search_b50000_lr0.005_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-08-51-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q4_search_b50000_lr0.01_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-09-02-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q4_search_b50000_lr0.02_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-09-13-tag-Eval_AverageReturn.csv'
 
 ]
 
@@ -110,9 +110,9 @@ labels = [
     'b=30000, lr=0.005',
     'b=30000, lr=0.01',
     'b=30000, lr=0.02',
-    # 'b=50000, lr=0.005',
-    # 'b=50000, lr=0.01',
-    # 'b=50000, lr=0.02',
+    'b=50000, lr=0.005',
+    'b=50000, lr=0.01',
+    'b=50000, lr=0.02'
 ]
 
 for filename, label in zip(filenames, labels):
