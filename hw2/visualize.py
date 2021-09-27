@@ -89,7 +89,7 @@ plt.legend(bbox_to_anchor=(1.05, 1))
 plt.savefig('plots/exp3.png', bbox_inches='tight')
 plt.close()
 
-# Experiment 4
+# Experiment 4 search
 filenames = [
     'experiment_csv/run-q4_search_b10000_lr0.005_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-06-tag-Eval_AverageReturn.csv',
     'experiment_csv/run-q4_search_b10000_lr0.01_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-28-tag-Eval_AverageReturn.csv',
@@ -125,6 +125,34 @@ plt.ylabel('Evaluation Average Return')
 plt.legend(bbox_to_anchor=(1.05, 1))
 
 plt.savefig('plots/exp4_search.png', bbox_inches='tight')
+plt.close()
+
+# Experiment 4 optimal param trials
+filenames = [
+    'experiment_csv/run-q4_b50000_r0.02_HalfCheetah-v2_27-09-2021_03-34-21-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q4_b50000_r0.02_rtg_HalfCheetah-v2_27-09-2021_03-34-37-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q4_b50000_r0.02_nnbaseline_HalfCheetah-v2_27-09-2021_03-34-48-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q4_b50000_r0.02_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_03-35-01-tag-Eval_AverageReturn.csv'
+]
+
+labels = [
+    'no rtg, no nn_baseline',
+    'rtg, no nn_baseline',
+    'no rtg, nn_baseline',
+    'rtg, nn_baseline'
+]
+
+for filename, label in zip(filenames, labels):
+    data = pd.read_csv(filename)
+    plt.plot(data['Step'], data['Value'], label=label)
+
+plt.title('HalfCheetah Optimal Parameter Trials Evaluation Average Return vs Iteration')
+plt.xlabel('Iteration #')
+plt.ylabel('Evaluation Average Return')
+
+plt.legend(bbox_to_anchor=(1.05, 1))
+
+plt.savefig('plots/exp4_opt.png', bbox_inches='tight')
 plt.close()
 
 # Experiment 5
