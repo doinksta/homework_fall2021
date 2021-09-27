@@ -81,3 +81,12 @@ python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
 --ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 150 -lr 1e-2 -rtg \
 --exp_name q2_b150_r1e-2
 ```
+
+# Experiment 3
+Commands used:
+```
+python cs285/scripts/run_hw2.py \
+--env_name LunarLanderContinuous-v2 --ep_len 1000 \
+--discount 0.99 -n 100 -l 2 -s 64 -b 40000 -lr 0.005 \
+--reward_to_go --nn_baseline --exp_name q3_b40000_r0.005
+```

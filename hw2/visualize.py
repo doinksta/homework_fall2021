@@ -68,3 +68,23 @@ plt.legend(bbox_to_anchor=(1.05, 1))
 
 plt.savefig('plots/exp2.png', bbox_inches='tight')
 plt.close()
+
+# Experiment 3
+filenames = [
+    'experiment_csv/run-q3_b40000_r0.005_LunarLanderContinuous-v2_26-09-2021_23-30-31-tag-Eval_AverageReturn.csv'
+]
+
+labels = ['PG Agent']
+
+for filename, label in zip(filenames, labels):
+    data = pd.read_csv(filename)
+    plt.plot(data['Step'], data['Value'], label=label)
+
+plt.title('LunarLander Evaluation Average Return vs Iteration')
+plt.xlabel('Iteration #')
+plt.ylabel('Evaluation Average Return')
+
+plt.legend(bbox_to_anchor=(1.05, 1))
+
+plt.savefig('plots/exp3.png', bbox_inches='tight')
+plt.close()
