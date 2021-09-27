@@ -100,7 +100,6 @@ filenames = [
     'experiment_csv/run-q4_search_b50000_lr0.005_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-08-51-tag-Eval_AverageReturn.csv',
     'experiment_csv/run-q4_search_b50000_lr0.01_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-09-02-tag-Eval_AverageReturn.csv',
     'experiment_csv/run-q4_search_b50000_lr0.02_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-09-13-tag-Eval_AverageReturn.csv'
-
 ]
 
 labels = [
@@ -126,4 +125,32 @@ plt.ylabel('Evaluation Average Return')
 plt.legend(bbox_to_anchor=(1.05, 1))
 
 plt.savefig('plots/exp4_search.png', bbox_inches='tight')
+plt.close()
+
+# Experiment 5
+filenames = [
+    'experiment_csv/run-q5_b2000_r0.001_lambda0_Hopper-v2_27-09-2021_02-59-10-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q5_b2000_r0.001_lambda0.95_Hopper-v2_27-09-2021_02-59-17-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q5_b2000_r0.001_lambda0.99_Hopper-v2_27-09-2021_02-59-23-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q5_b2000_r0.001_lambda1_Hopper-v2_27-09-2021_02-59-06-tag-Eval_AverageReturn.csv'
+]
+
+labels = [
+    'lambda=0',
+    'lambda=0.95',
+    'lambda=0.99',
+    'lambda=1'
+]
+
+for filename, label in zip(filenames, labels):
+    data = pd.read_csv(filename)
+    plt.plot(data['Step'], data['Value'], label=label)
+
+plt.title('Hopper Evaluation Average Return vs Iteration')
+plt.xlabel('Iteration #')
+plt.ylabel('Evaluation Average Return')
+
+plt.legend(bbox_to_anchor=(1.05, 1))
+
+plt.savefig('plots/exp5.png', bbox_inches='tight')
 plt.close()
