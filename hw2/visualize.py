@@ -88,3 +88,42 @@ plt.legend(bbox_to_anchor=(1.05, 1))
 
 plt.savefig('plots/exp3.png', bbox_inches='tight')
 plt.close()
+
+# Experiment 4
+filenames = [
+    'experiment_csv/run-q4_search_b10000_lr0.005_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-06-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q4_search_b10000_lr0.01_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-28-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q4_search_b10000_lr0.02_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-48-tag-Eval_AverageReturn.csv',
+    # 'experiment_csv/run-q4_search_b10000_lr0.005_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-06-tag-Eval_AverageReturn.csv',
+    # 'experiment_csv/run-q4_search_b10000_lr0.01_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-28-tag-Eval_AverageReturn.csv',
+    # 'experiment_csv/run-q4_search_b10000_lr0.02_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-48-tag-Eval_AverageReturn.csv',
+    # 'experiment_csv/run-q4_search_b10000_lr0.005_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-06-tag-Eval_AverageReturn.csv',
+    # 'experiment_csv/run-q4_search_b10000_lr0.01_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-28-tag-Eval_AverageReturn.csv',
+    # 'experiment_csv/run-q4_search_b10000_lr0.02_rtg_nnbaseline_HalfCheetah-v2_27-09-2021_02-07-48-tag-Eval_AverageReturn.csv'
+
+]
+
+labels = [
+    'b=10000, lr=0.005',
+    'b=10000, lr=0.01',
+    'b=10000, lr=0.02',
+    # 'b=30000, lr=0.005',
+    # 'b=30000, lr=0.01',
+    # 'b=30000, lr=0.02',
+    # 'b=50000, lr=0.005',
+    # 'b=50000, lr=0.01',
+    # 'b=50000, lr=0.02',
+]
+
+for filename, label in zip(filenames, labels):
+    data = pd.read_csv(filename)
+    plt.plot(data['Step'], data['Value'], label=label)
+
+plt.title('HalfCheetah Hyperparameter Search Evaluation Average Return vs Iteration')
+plt.xlabel('Iteration #')
+plt.ylabel('Evaluation Average Return')
+
+plt.legend(bbox_to_anchor=(1.05, 1))
+
+plt.savefig('plots/exp4_search.png', bbox_inches='tight')
+plt.close()
