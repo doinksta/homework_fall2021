@@ -170,8 +170,8 @@ class MLPPolicyPG(MLPPolicy):
             value_preds = self.baseline(observations)
             value_targets = ptu.from_numpy((q_values - np.mean(q_values)) / np.std(q_values))
 
-            torch.squeeze(value_preds)
-            torch.squeeze(value_targets)
+            value_preds = torch.squeeze(value_preds)
+            value_targets = torch.squeeze(value_targets)
 
             loss = self.baseline_loss(value_preds, value_targets)
 
