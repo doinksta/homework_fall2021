@@ -48,3 +48,23 @@ plt.legend(bbox_to_anchor=(1.05, 1))
 
 plt.savefig('plots/exp1_lb.png', bbox_inches='tight')
 plt.close()
+
+# Experiment 2
+filenames = [
+    'experiment_csv/run-q2_b160_r1e-2_InvertedPendulum-v2_26-09-2021_17-34-09-tag-Eval_AverageReturn.csv'
+]
+
+labels = ['b=160, r=1e-2']
+
+for filename, label in zip(filenames, labels):
+    data = pd.read_csv(filename)
+    plt.plot(data['Step'], data['Value'], label=label)
+
+plt.title('InvertedPendulum Evaluation Average Return vs Iteration (b=160, r=1e-2)')
+plt.xlabel('Iteration #')
+plt.ylabel('Evaluation Average Return')
+
+plt.legend(bbox_to_anchor=(1.05, 1))
+
+plt.savefig('plots/exp2.png', bbox_inches='tight')
+plt.close()

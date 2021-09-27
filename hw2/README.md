@@ -23,3 +23,61 @@ python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 5000 \
 ```
 
 # Experiment 2
+Commands used:
+```
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 1000 -lr 5e-3 -rtg \
+--exp_name q2_b1000_r5e-3
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 500 -lr 5e-3 -rtg \
+--exp_name q2_b500_r5e-3
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 500 -lr 1e-2 -rtg \
+--exp_name q2_b500_r1e-2
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 250 -lr 1e-2 -rtg \
+--exp_name q2_b250_r1e-2
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 250 -lr 7e-3 -rtg \
+--exp_name q2_b250_r7e-3
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 125 -lr 7e-3 -rtg \
+--exp_name q2_b125_r7e-3
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 150 -lr 8e-3 -rtg \
+--exp_name q2_b150_r8e-3
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 200 -lr 7e-3 -rtg \
+--exp_name q2_b200_r7e-3
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 200 -lr 8e-3 -rtg \
+--exp_name q2_b200_r8e-3
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 190 -lr 9e-3 -rtg \
+--exp_name q2_b190_r9e-3
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 175 -lr 1e-2 -rtg \
+--exp_name q2_b175_r1e-2
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 160 -lr 1e-2 -rtg \
+--exp_name q2_b160_r1e-2
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 130 -lr 1e-2 -rtg \
+--exp_name q2_b130_r1e-2
+
+python cs285/scripts/run_hw2.py --env_name InvertedPendulum-v2 \
+--ep_len 1000 --discount 0.9 -n 100 -l 2 -s 64 -b 150 -lr 1e-2 -rtg \
+--exp_name q2_b150_r1e-2
+```
