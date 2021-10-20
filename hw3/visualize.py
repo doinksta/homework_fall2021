@@ -72,6 +72,7 @@ for y, label in zip([dqn_y, ddqn_y], labels):
 plt.title('LunarLandar Train Average Returns vs. Iteration')
 plt.xlabel('Iteration #')
 plt.ylabel('Train Average Return')
+plt.gca().ticklabel_format(axis='x', format='sci', scilimits=(0, 0))
 
 plt.legend(bbox_to_anchor=(1.05, 1))
 
@@ -101,4 +102,29 @@ plt.gca().ticklabel_format(axis='x', format='sci', scilimits=(0, 0))
 plt.legend(bbox_to_anchor=(1.05, 1))
 
 plt.savefig('plots/q3.png', bbox_inches='tight')
+plt.close()
+
+
+# Question 4
+filenames = [
+    'experiment_csv/run-q4_ac_1_1_CartPole-v0_20-10-2021_14-22-56-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q4_1_100_CartPole-v0_20-10-2021_14-23-07-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q4_10_10_CartPole-v0_20-10-2021_14-23-09-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q4_100_1_CartPole-v0_20-10-2021_14-23-23-tag-Eval_AverageReturn.csv'
+]
+
+labels = ['NTU 1, NGSPTU 1', 'NTU 1, NGSPTU 100', 'NTU 10, NGSPTU 10', 'NTU 100, NGSPTU 1']
+
+for filename, label in zip(filenames, labels):
+    data = pd.read_csv(filename)
+    plt.plot(data['Step'], data['Value'], label=label)
+
+plt.title('Varied Target Updates and Gradient Steps CartPole Train Average Returns vs. Iteration')
+plt.xlabel('Iteration #')
+plt.ylabel('Train Average Return')
+plt.gca().ticklabel_format(axis='x', format='sci', scilimits=(0, 0))
+
+plt.legend(bbox_to_anchor=(1.05, 1))
+
+plt.savefig('plots/q4.png', bbox_inches='tight')
 plt.close()

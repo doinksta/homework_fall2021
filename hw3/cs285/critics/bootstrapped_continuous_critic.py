@@ -1,3 +1,5 @@
+import torch.autograd
+
 from .base_critic import BaseCritic
 from torch import nn
 from torch import optim
@@ -92,12 +94,19 @@ class BootstrappedContinuousCritic(nn.Module, BaseCritic):
         reward_n = ptu.from_numpy(reward_n)
         terminal_n = ptu.from_numpy(terminal_n)
 
+        torch.autograd.set_detect_anomaly(True)
+
         for i in range(self.num_grad_steps_per_target_update * self.num_target_updates):
             if i % self.num_grad_steps_per_target_update == 0:
-                v_tp1 = self.critic_network(next_ob_no).squeeze(1)
+                v_tp1 = self.forward(next_ob_no)
                 target = reward_n + self.gamma * v_tp1 * (1 - terminal_n)
+                target = target.detach()
 
-            v_t = self.critic_network(ob_no).squeeze(1)
+            v_t = self.forward(ob_no)
 
             loss = self.loss(v_t, target)
+
+            self.optimizer.zero_grad()
+            loss.backward()
+            self.optimizer.step()
         return loss.item()
