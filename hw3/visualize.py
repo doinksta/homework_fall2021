@@ -78,3 +78,27 @@ plt.legend(bbox_to_anchor=(1.05, 1))
 plt.savefig('plots/q2.png', bbox_inches='tight')
 plt.close()
 
+
+# Question 3
+filenames = [
+    'experiment_csv/run-q3_hparam0_LunarLander-v3_19-10-2021_22-36-16-tag-Train_AverageReturn.csv',
+    'experiment_csv/run-q3_hparam1_LunarLander-v3_19-10-2021_23-29-34-tag-Train_AverageReturn.csv',
+    'experiment_csv/run-q3_hparam2_LunarLander-v3_19-10-2021_23-29-55-tag-Train_AverageReturn.csv',
+    'experiment_csv/run-q3_hparam3_LunarLander-v3_19-10-2021_23-30-15-tag-Train_AverageReturn.csv'
+]
+
+labels = ['Exploration Duration Multiplier 0.1 (Default)', 'Exploration Duration Multiplier 0.2', 'Exploration Duration Multiplier 0.3', 'Exploration Duration Multiplier 0.4']
+
+for filename, label in zip(filenames, labels):
+    data = pd.read_csv(filename)
+    plt.plot(data['Step'], data['Value'], label=label)
+
+plt.title('Varied Exploration Time LunarLander Train Average Returns vs. Iteration')
+plt.xlabel('Iteration #')
+plt.ylabel('Train Average Return')
+plt.gca().ticklabel_format(axis='x', format='sci', scilimits=(0, 0))
+
+plt.legend(bbox_to_anchor=(1.05, 1))
+
+plt.savefig('plots/q3.png', bbox_inches='tight')
+plt.close()
