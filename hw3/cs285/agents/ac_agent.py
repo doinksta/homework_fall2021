@@ -7,6 +7,9 @@ from cs285.infrastructure.utils import *
 from cs285.policies.MLP_policy import MLPPolicyAC
 from .base_agent import BaseAgent
 
+from cs285.infrastructure import pytorch_util as ptu
+import torch
+
 
 class ACAgent(BaseAgent):
     def __init__(self, env, agent_params):
@@ -63,10 +66,17 @@ class ACAgent(BaseAgent):
         # 3) estimate the Q value as Q(s, a) = r(s, a) + gamma*V(s')
         # HINT: Remember to cut off the V(s') term (ie set it to 0) at terminal states (ie terminal_n=1)
         # 4) calculate advantage (adv_n) as A(s, a) = Q(s, a) - V(s)
+        ob_no = ptu.from_numpy(ob_no)
+        next_ob_no = ptu.from_numpy(next_ob_no)
+        re_n = ptu.from_numpy(re_n)
+        terminal_n = ptu.from_numpy(terminal_n)
+
         v_t = self.critic.forward(ob_no)
         v_tp1 = self.critic.forward(next_ob_no)
         q_value = re_n + self.gamma * v_tp1 * (1 - terminal_n)
         adv_n = q_value - v_t
+
+        adv_n = ptu.to_numpy(adv_n)
 
         if self.standardize_advantages:
             adv_n = (adv_n - np.mean(adv_n)) / (np.std(adv_n) + 1e-8)
