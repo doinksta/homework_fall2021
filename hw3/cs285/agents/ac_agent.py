@@ -53,7 +53,10 @@ class ACAgent(BaseAgent):
         # 3) estimate the Q value as Q(s, a) = r(s, a) + gamma*V(s')
         # HINT: Remember to cut off the V(s') term (ie set it to 0) at terminal states (ie terminal_n=1)
         # 4) calculate advantage (adv_n) as A(s, a) = Q(s, a) - V(s)
-        adv_n = TODO
+        v_t = self.critic.forward(ob_no)
+        v_tp1 = self.critic.forward(next_ob_no)
+        q_value = re_n + self.gamma * v_tp1 * (1 - terminal_n)
+        adv_n = q_value - v_t
 
         if self.standardize_advantages:
             adv_n = (adv_n - np.mean(adv_n)) / (np.std(adv_n) + 1e-8)
