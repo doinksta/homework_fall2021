@@ -122,9 +122,28 @@ for filename, label in zip(filenames, labels):
 plt.title('Varied Target Updates and Gradient Steps CartPole Train Average Returns vs. Iteration')
 plt.xlabel('Iteration #')
 plt.ylabel('Train Average Return')
-plt.gca().ticklabel_format(axis='x', format='sci', scilimits=(0, 0))
 
 plt.legend(bbox_to_anchor=(1.05, 1))
 
 plt.savefig('plots/q4.png', bbox_inches='tight')
 plt.close()
+
+
+# Question 5
+filenames = [
+    'experiment_csv/run-q5_1_100_InvertedPendulum-v2_20-10-2021_15-00-25-tag-Eval_AverageReturn.csv',
+    'experiment_csv/run-q5_1_100_HalfCheetah-v2_20-10-2021_15-00-31-tag-Eval_AverageReturn.csv'
+]
+
+titles = ['InvertedPendulum Eval Average Returns vs. Iteration', 'HalfCheetah Eval Average Returns vs. Iteration']
+
+for i, (filename, title) in enumerate(zip(filenames, titles)):
+    data = pd.read_csv(filename)
+    plt.plot(data['Step'], data['Value'])
+
+    plt.title(title)
+    plt.xlabel('Iteration #')
+    plt.ylabel('Eval Average Return')
+
+    plt.savefig('plots/q5_{}.png'.format(i), bbox_inches='tight')
+    plt.close()
