@@ -152,7 +152,7 @@ class FFModel(nn.Module, BaseModel):
             ptu.from_numpy(data_statistics['acs_std']),
             ptu.from_numpy(data_statistics['delta_mean']),
             ptu.from_numpy(data_statistics['delta_std'])
-        )[0])  # TODO(Q1) compute the loss
+        )[1])  # TODO(Q1) compute the loss
         # Hint: `self(...)` returns a tuple, but you only need to use one of the
         # outputs.
 
