@@ -82,7 +82,7 @@ class FFModel(nn.Module, BaseModel):
         acs_normalized = normalize(acs_unnormalized, acs_mean, acs_std)  # TODO(Q1)
 
         # predicted change in obs
-        concatenated_input = torch.cat([obs_normalized, acs_normalized], dim=1)
+        concatenated_input = torch.cat([obs_normalized, acs_normalized], dim=-1)
 
         # TODO(Q1) compute delta_pred_normalized and next_obs_pred
         # Hint: as described in the PDF, the output of the network is the
