@@ -51,7 +51,7 @@ class MBAgent(BaseAgent):
             # select which datapoints to use for this model of the ensemble
             # you might find the num_data_per_env variable defined above useful
 
-            random_indices = np.random.choice(num_data, num_data_per_ens)
+            random_indices = range(i * num_data_per_ens, (i + 1) * num_data_per_ens)
 
             observations = ob_no[random_indices, ...]  # TODO(Q1)
             actions = ac_na[random_indices, ...]  # TODO(Q1)
