@@ -1,3 +1,5 @@
+Note: to generate all plots, run `python visualize.py`
+
 ## Question 1
 
 Commands used:
