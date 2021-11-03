@@ -19,8 +19,8 @@ import tqdm
 # Adapted from
 # https://gist.github.com/serycjon/c9ad58ecc3176d87c49b69b598f4d6c6
 
-import tensorflow as tf
-
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='')

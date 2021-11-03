@@ -33,3 +33,63 @@ plt.legend()
 
 plt.savefig('plots/q2.png')
 plt.close()
+
+# Question 3 obstacles
+logdir = '{}/hw4_q3_obstacles_obstacles-cs285-v0_03-11-2021_02-14-27/events*'.format(root_folder)
+eventfile = glob.glob(logdir)[0]
+
+X, Y = get_section_results(eventfile)
+plt.plot(range(len(X)), X, label='Train_AverageReturn', marker='o')
+plt.plot(range(len(Y)), Y, label='Eval_AverageReturn', marker='o')
+plt.title('Train and Eval Average Return for Obstacles')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q3_obs.png')
+plt.close()
+
+# Question 3 reacher
+logdir = '{}/hw4_q3_reacher_reacher-cs285-v0_03-11-2021_11-32-01/events*'.format(root_folder)
+eventfile = glob.glob(logdir)[0]
+
+X, Y = get_section_results(eventfile)
+plt.plot(range(len(X)), X, label='Train_AverageReturn', marker='o')
+plt.plot(range(len(Y)), Y, label='Eval_AverageReturn', marker='o')
+plt.title('Train and Eval Average Return for Reacher')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q3_reach.png')
+plt.close()
+
+# Question 3 cheetah
+logdir = '{}/hw4_q3_cheetah_cheetah-cs285-v0_03-11-2021_11-58-38/events*'.format(root_folder)
+eventfile = glob.glob(logdir)[0]
+
+X, Y = get_section_results(eventfile)
+plt.plot(range(len(X)), X, label='Train_AverageReturn', marker='o')
+plt.plot(range(len(Y)), Y, label='Eval_AverageReturn', marker='o')
+plt.title('Train and Eval Average Return for Cheetah')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q3_cheetah.png')
+plt.close()
+
+# Question 4 ensemble
+logdir = '{}/hw4_q3_cheetah_cheetah-cs285-v0_03-11-2021_11-58-38/events*'.format(root_folder)
+eventfile = glob.glob(logdir)[0]
+
+X, Y = get_section_results(eventfile)
+plt.plot(range(len(X)), X, label='Train_AverageReturn', marker='o')
+plt.plot(range(len(Y)), Y, label='Eval_AverageReturn', marker='o')
+plt.title('Train and Eval Average Return for Cheetah')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q3_cheetah.png')
+plt.close()

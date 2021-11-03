@@ -134,9 +134,12 @@ class MPCPolicy(BasePolicy):
 
         sum_of_rewards = np.zeros(self.N)  # TODO (Q2)
 
-        for n in range(self.N):
-            for h in range(candidate_action_sequences.shape[1]):
-                sum_of_rewards[n] += self.env.get_reward(states[n, h, :], candidate_action_sequences[n, h, :])[0]
+        # for n in range(self.N):
+        #     for h in range(candidate_action_sequences.shape[1]):
+        #         sum_of_rewards[n] += self.env.get_reward(states[n, h, :], candidate_action_sequences[n, h, :])[0]
+
+        for h in range(candidate_action_sequences.shape[1]):
+            sum_of_rewards += self.env.get_reward(states[:, h, :], candidate_action_sequences[:, h, :])[0].reshape(self.N)
 
         # For each candidate action sequence, predict a sequence of
         # states for each dynamics model in your ensemble.
