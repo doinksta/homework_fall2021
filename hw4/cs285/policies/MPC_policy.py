@@ -53,7 +53,7 @@ class MPCPolicy(BasePolicy):
             # TODO(Q1) uniformly sample trajectories and return an array of
             # dimensions (num_sequences, horizon, self.ac_dim) in the range
             # [self.low, self.high]
-            random_action_sequences = np.random.choice(self.high - self.low + 1, (num_sequences, horizon, self.ac_dim)) + self.low;
+            random_action_sequences = np.random.rand(num_sequences, horizon, self.ac_dim) * (self.high - self.low) + self.low
             return random_action_sequences
         elif self.sample_strategy == 'cem':
             # TODO(Q5): Implement action selection using CEM.
