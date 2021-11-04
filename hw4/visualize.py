@@ -18,7 +18,7 @@ def get_section_results(file):
     return X, Y
 
 
-root_folder = 'data_final'
+root_folder = 'data'
 
 # Question 2
 logdir = '{}/hw4_q2_obstacles_singleiteration_obstacles-cs285-v0_03-11-2021_00-55-32/events*'.format(root_folder)
@@ -119,7 +119,7 @@ X, Y = get_section_results(eventfile)
 plt.plot(range(len(X)), X, label='Candidate Sequences 1000 Train_AverageReturn', marker='o')
 plt.plot(range(len(Y)), Y, label='Candidate Sequences 1000 Eval_AverageReturn', marker='o')
 
-plt.title('Number of Candidate Action Sequences vs. Train and Eval Average Return for Reacher')
+plt.title('# Candidate Action Sequences vs. Train and Eval Average Return for Reacher')
 plt.xlabel('Iteration #')
 plt.ylabel('Average Return')
 plt.legend()
@@ -152,4 +152,31 @@ plt.ylabel('Average Return')
 plt.legend()
 
 plt.savefig('plots/q4_horizon.png')
+plt.close()
+
+# Question 5 horizon
+logdir = '{}/hw4_q5_cheetah_random_cheetah-cs285-v0_03-11-2021_20-08-19/events*'.format(root_folder)
+eventfile = glob.glob(logdir)[0]
+X, Y = get_section_results(eventfile)
+plt.plot(range(len(X)), X, label='Random Shooting Train_AverageReturn', marker='o')
+plt.plot(range(len(Y)), Y, label='Random Shooting Eval_AverageReturn', marker='o')
+
+logdir = '{}/hw4_q5_cheetah_cem_2_cheetah-cs285-v0_04-11-2021_00-09-42/events*'.format(root_folder)
+eventfile = glob.glob(logdir)[0]
+X, Y = get_section_results(eventfile)
+plt.plot(range(len(X)), X, label='CEM 2 Train_AverageReturn', marker='o')
+plt.plot(range(len(Y)), Y, label='CEM 2 Eval_AverageReturn', marker='o')
+
+logdir = '{}/hw4_q5_cheetah_cem_4_cheetah-cs285-v0_04-11-2021_00-09-55/events*'.format(root_folder)
+eventfile = glob.glob(logdir)[0]
+X, Y = get_section_results(eventfile)
+plt.plot(range(len(X)), X, label='CEM 4 Train_AverageReturn', marker='o')
+plt.plot(range(len(Y)), Y, label='CEM 4 Eval_AverageReturn', marker='o')
+
+plt.title('Action Selection vs. Train and Eval Average Return for Cheetah')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q5.png')
 plt.close()
