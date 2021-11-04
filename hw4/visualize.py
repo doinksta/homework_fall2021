@@ -39,9 +39,8 @@ logdir = '{}/hw4_q3_obstacles_obstacles-cs285-v0_03-11-2021_02-14-27/events*'.fo
 eventfile = glob.glob(logdir)[0]
 
 X, Y = get_section_results(eventfile)
-plt.plot(range(len(X)), X, label='Train_AverageReturn', marker='o')
 plt.plot(range(len(Y)), Y, label='Eval_AverageReturn', marker='o')
-plt.title('Train and Eval Average Return for Obstacles')
+plt.title('Eval Average Return for Obstacles')
 plt.xlabel('Iteration #')
 plt.ylabel('Average Return')
 plt.legend()
@@ -54,9 +53,8 @@ logdir = '{}/hw4_q3_reacher_reacher-cs285-v0_03-11-2021_11-32-01/events*'.format
 eventfile = glob.glob(logdir)[0]
 
 X, Y = get_section_results(eventfile)
-plt.plot(range(len(X)), X, label='Train_AverageReturn', marker='o')
 plt.plot(range(len(Y)), Y, label='Eval_AverageReturn', marker='o')
-plt.title('Train and Eval Average Return for Reacher')
+plt.title('Eval Average Return for Reacher')
 plt.xlabel('Iteration #')
 plt.ylabel('Average Return')
 plt.legend()
@@ -122,7 +120,7 @@ plt.savefig('plots/q4_cand.png')
 plt.close()
 
 # Question 4 horizon
-logdir = '{}/hw4_q4_reacher_horizon5_reacher-cs285-v0_03-11-2021_02-15-24/events*'.format(root_folder)
+logdir = '{}/hw4_q4_reacher_horizon5_reacher-cs285-v0_04-11-2021_03-54-21/events*'.format(root_folder)
 eventfile = glob.glob(logdir)[0]
 X, Y = get_section_results(eventfile)
 plt.plot(range(len(Y)), Y, label='Horizon 5 Eval_AverageReturn', marker='o')
