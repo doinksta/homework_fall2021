@@ -74,24 +74,28 @@ class MPCPolicy(BasePolicy):
                 # - Update the elite mean and variance
                 if elite_mean is None:
                     action_sequences = np.random.rand(num_sequences, horizon, self.ac_dim) * (self.high - self.low) + self.low
-                    action_sequences = action_sequences.reshape((num_sequences, horizon * self.ac_dim))
                 else:
-                    action_sequences = np.random.multivariate_normal(elite_mean, elite_var, num_sequences)
+                    action_sequences = np.zeros((num_sequences, horizon, self.ac_dim))
+                    for h in range(horizon):
+                        action_sequences[:, h, :] = np.random.multivariate_normal(elite_mean[h, :], elite_var[h, :, :], num_sequences)
 
-                action_sequences = action_sequences.reshape((num_sequences, horizon, self.ac_dim))
                 rewards = self.evaluate_candidate_sequences(action_sequences, obs)
 
                 elite_idx = np.argpartition(rewards, -self.cem_num_elites)[-self.cem_num_elites:]
 
                 elite_sequences = action_sequences[elite_idx, ...]
-                elite_sequences = elite_sequences.reshape((self.cem_num_elites, horizon * self.ac_dim))
+
+                elite_mean_temp = np.mean(elite_sequences, axis=0)
+                elite_var_temp = np.zeros((horizon, self.ac_dim, self.ac_dim))
+                for h in range(horizon):
+                    elite_var_temp[h, :, :] = np.cov(elite_sequences[:, h, :], rowvar=False)
 
                 if elite_mean is None:
-                    elite_mean = np.mean(elite_sequences, axis=0)
-                    elite_var = np.cov(elite_sequences, rowvar=False)
+                    elite_mean = elite_mean_temp
+                    elite_var = elite_var_temp
                 else:
-                    elite_mean = self.cem_alpha * np.mean(elite_sequences, axis=0) + (1 - self.cem_alpha) * elite_mean
-                    elite_var = self.cem_alpha * np.cov(elite_sequences, rowvar=False) + (1 - self.cem_alpha) * elite_var
+                    elite_mean = self.cem_alpha * elite_mean_temp + (1 - self.cem_alpha) * elite_mean
+                    elite_var = self.cem_alpha * elite_var_temp + (1 - self.cem_alpha) * elite_var
 
             # TODO(Q5): Set `cem_action` to the appropriate action sequence chosen by CEM.
             # The shape should be (horizon, self.ac_dim)
