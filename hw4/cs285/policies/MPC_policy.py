@@ -60,6 +60,9 @@ class MPCPolicy(BasePolicy):
             # Begin with randomly selected actions, then refine the sampling distribution
             # iteratively as described in Section 3.3, "Iterative Random-Shooting with Refinement" of
             # https://arxiv.org/pdf/1909.11652.pdf
+            elite_mean = None
+            elite_var = None
+
             for i in range(self.cem_iterations):
                 # - Sample candidate sequences from a Gaussian with the current
                 #   elite mean and variance
@@ -69,11 +72,30 @@ class MPCPolicy(BasePolicy):
                 #     (Hint: what existing function can we use to compute rewards for
                 #      our candidate sequences in order to rank them?)
                 # - Update the elite mean and variance
-                pass
+                if elite_mean is None:
+                    action_sequences = np.random.rand(num_sequences, horizon, self.ac_dim) * (self.high - self.low) + self.low
+                    action_sequences = action_sequences.reshape((num_sequences, horizon * self.ac_dim))
+                else:
+                    action_sequences = np.random.multivariate_normal(elite_mean, elite_var, num_sequences)
+
+                action_sequences = action_sequences.reshape((num_sequences, horizon, self.ac_dim))
+                rewards = self.evaluate_candidate_sequences(action_sequences, obs)
+
+                elite_idx = np.argpartition(rewards, -self.cem_num_elites)[-self.cem_num_elites:]
+
+                elite_sequences = action_sequences[elite_idx, ...]
+                elite_sequences = elite_sequences.reshape((self.cem_num_elites, horizon * self.ac_dim))
+
+                if elite_mean is None:
+                    elite_mean = np.mean(elite_sequences, axis=0)
+                    elite_var = np.cov(elite_sequences, rowvar=False)
+                else:
+                    elite_mean = self.cem_alpha * np.mean(elite_sequences, axis=0) + (1 - self.cem_alpha) * elite_mean
+                    elite_var = self.cem_alpha * np.cov(elite_sequences, rowvar=False) + (1 - self.cem_alpha) * elite_var
 
             # TODO(Q5): Set `cem_action` to the appropriate action sequence chosen by CEM.
             # The shape should be (horizon, self.ac_dim)
-            cem_action = None
+            cem_action = elite_mean.reshape((horizon, self.ac_dim))
 
             return cem_action[None]
         else:

@@ -97,3 +97,25 @@ python cs285/scripts/run_hw4_mb.py --exp_name q4_reacher_ensemble5 \
 --mpc_horizon 10 --num_agent_train_steps_per_iter 1000 --batch_size \
 800 --n_iter 15 --mpc_action_sampling_strategy 'random' --video_log_freq -1
 ```
+
+## Question 5
+
+Commands used:
+```
+python cs285/scripts/run_hw4_mb.py --exp_name q5_cheetah_random \
+--env_name 'cheetah-cs285-v0' --mpc_horizon 15 --add_sl_noise \
+--num_agent_train_steps_per_iter 1500 --batch_size_initial 5000 \
+--batch_size 5000 --n_iter 5 --mpc_action_sampling_strategy 'random' --video_log_freq -1
+
+python cs285/scripts/run_hw4_mb.py --exp_name q5_cheetah_cem_2 \
+--env_name 'cheetah-cs285-v0' --mpc_horizon 15 --add_sl_noise \
+--num_agent_train_steps_per_iter 1500 --batch_size_initial 5000 \
+--batch_size 5000 --n_iter 5 --mpc_action_sampling_strategy 'cem' \
+--cem_iterations 2 --video_log_freq -1
+
+python cs285/scripts/run_hw4_mb.py --exp_name q5_cheetah_cem_4 \
+--env_name 'cheetah-cs285-v0' --mpc_horizon 15 --add_sl_noise \
+--num_agent_train_steps_per_iter 1500 --batch_size_initial 5000 \
+--batch_size 5000 --n_iter 5 --mpc_action_sampling_strategy 'cem' \
+--cem_iterations 4 --video_log_freq -1
+```
