@@ -96,6 +96,11 @@ class CQLCritic(BaseCritic):
 
         loss = loss + cql_loss
 
+        self.optimizer.zero_grad()
+        loss.backward()
+        utils.clip_grad_value_(self.q_net.parameters(), self.grad_norm_clipping)
+        self.optimizer.step()
+
         info = {'Training Loss': ptu.to_numpy(loss)}
 
         # TODO: Uncomment these lines after implementing CQL
