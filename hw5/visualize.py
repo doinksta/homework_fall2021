@@ -74,8 +74,8 @@ plt.close()
 
 # Question 1 Subpart 2 Medium
 logdirs = [
-'{}/hw5_expl_q1_alg_med_PointmassMedium-v0_18-11-2021_00-05-11/events*'.format(root_folder),
-'{}/hw5_expl_q1_alg_med_rnd_PointmassMedium-v0_18-11-2021_00-11-49/events*'.format(root_folder)
+'{}/hw5_expl_q1_alg_med_PointmassMedium-v0_18-11-2021_03-07-34/events*'.format(root_folder),
+'{}/hw5_expl_q1_alg_med_rnd_PointmassMedium-v0_18-11-2021_03-07-46/events*'.format(root_folder)
 ]
 
 labels = [
@@ -100,8 +100,8 @@ plt.close()
 
 # Question 1 Subpart 2 Hard
 logdirs = [
-'{}/hw5_expl_q1_alg_hard_PointmassHard-v0_18-11-2021_00-05-21/events*'.format(root_folder),
-'{}/hw5_expl_q1_alg_hard_rnd_PointmassHard-v0_18-11-2021_00-09-15/events*'.format(root_folder)
+'{}/hw5_expl_q1_alg_hard_PointmassHard-v0_18-11-2021_02-45-59/events*'.format(root_folder),
+'{}/hw5_expl_q1_alg_hard_rnd_PointmassHard-v0_18-11-2021_02-37-29/events*'.format(root_folder)
 ]
 
 labels = [
