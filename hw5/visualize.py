@@ -70,3 +70,55 @@ plt.legend()
 
 plt.savefig('plots/q1_medium.png')
 plt.close()
+
+
+# Question 1 Subpart 2 Medium
+logdirs = [
+'{}/hw5_expl_q1_alg_med_PointmassMedium-v0_18-11-2021_00-05-11/events*'.format(root_folder),
+'{}/hw5_expl_q1_alg_med_rnd_PointmassMedium-v0_18-11-2021_00-11-49/events*'.format(root_folder)
+]
+
+labels = [
+    'RND2 Exploration',
+    'RND Exploration'
+]
+
+for logdir, label in zip(logdirs, labels):
+    eventfile = glob.glob(logdir)[0]
+
+    X, Y = get_section_results(eventfile)
+    plt.plot(X, Y, label=label)
+
+plt.title('Exploration Method vs. Eval Average Return for PointmassMedium')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q1_medium2.png')
+plt.close()
+
+
+# Question 1 Subpart 2 Hard
+logdirs = [
+'{}/hw5_expl_q1_alg_hard_PointmassHard-v0_18-11-2021_00-05-21/events*'.format(root_folder),
+'{}/hw5_expl_q1_alg_hard_rnd_PointmassHard-v0_18-11-2021_00-09-15/events*'.format(root_folder)
+]
+
+labels = [
+    'RND2 Exploration',
+    'RND Exploration'
+]
+
+for logdir, label in zip(logdirs, labels):
+    eventfile = glob.glob(logdir)[0]
+
+    X, Y = get_section_results(eventfile)
+    plt.plot(X, Y, label=label)
+
+plt.title('Exploration Method vs. Eval Average Return for PointmassHard')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q1_hard2.png')
+plt.close()
