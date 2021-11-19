@@ -278,3 +278,77 @@ plt.tight_layout()
 plt.savefig('plots/q2_explore_table.png')
 plt.close()
 
+
+# Question 2 Subpart 3 Plot
+logdirs = [
+'{}/hw5_expl_q2_dqn_PointmassMedium-v0_18-11-2021_16-21-29/events*'.format(root_folder),
+'{}/hw5_expl_q2_alpha_0.02_PointmassMedium-v0_18-11-2021_18-54-24/events*'.format(root_folder),
+'{}/hw5_expl_q2_cql_PointmassMedium-v0_18-11-2021_16-18-12/events*'.format(root_folder),
+'{}/hw5_expl_q2_alpha_0.5_PointmassMedium-v0_18-11-2021_18-54-31/events*'.format(root_folder),
+]
+
+labels = [
+    'alpha 0',
+    'alpha 0.02',
+    'alpha 0.1',
+    'alpha 0.5',
+]
+
+vals = []
+
+for logdir, label in zip(logdirs, labels):
+    eventfile = glob.glob(logdir)[0]
+
+    X, Y = get_section_results(eventfile)
+
+    plt.plot(X, Y, label=label)
+    vals.append(max(Y))
+
+plt.title('Alpha Value vs. Eval Average Return for PointmassMedium')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q2_alpha_plot.png')
+plt.close()
+
+
+# Question 2 Subpart 3 Table
+logdirs = [
+'{}/hw5_expl_q2_dqn_PointmassMedium-v0_18-11-2021_16-21-29/events*'.format(root_folder),
+'{}/hw5_expl_q2_alpha_0.02_PointmassMedium-v0_18-11-2021_18-54-24/events*'.format(root_folder),
+'{}/hw5_expl_q2_cql_PointmassMedium-v0_18-11-2021_16-18-12/events*'.format(root_folder),
+'{}/hw5_expl_q2_alpha_0.5_PointmassMedium-v0_18-11-2021_18-54-31/events*'.format(root_folder),
+]
+
+labels = [
+    'alpha 0',
+    'alpha 0.02',
+    'alpha 0.1',
+    'alpha 0.5',
+]
+
+vals = []
+
+for logdir, label in zip(logdirs, labels):
+    eventfile = glob.glob(logdir)[0]
+
+    X, Y = get_section_results(eventfile)
+    vals.append(max(Y))
+
+#define figure and axes
+fig, ax = plt.subplots()
+
+#hide the axes
+plt.gca().axis('off')
+plt.gca().axis('tight')
+
+plt.title('Alpha Value vs. Eval Average Return for PointmassMedium')
+
+plt.table(cellText=[vals],
+          colLabels=['0', '0.02', '0.1', '0.5'],
+          loc='center'
+        )
+
+plt.savefig('plots/q2_alpha_table.png')
+plt.close()
