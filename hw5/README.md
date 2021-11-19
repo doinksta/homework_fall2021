@@ -41,9 +41,42 @@ python cs285/scripts/run_hw5_expl.py --env_name PointmassMedium-v0 --exp_name q2
 
 python cs285/scripts/run_hw5_expl.py --env_name PointmassMedium-v0 --exp_name q2_cql \
 --use_rnd --unsupervised_exploration --offline_exploitation --cql_alpha=0.1
+```
 
 
-#TODO remove
-python cs285/scripts/run_hw5_expl.py --env_name PointmassMedium-v0 --exp_name aaaaa \
---use_rnd --unsupervised_exploration --offline_exploitation --cql_alpha=0.1 --exploit_rew_shift 1 --exploit_rew_scale 100
+## Question 2 Subpart 2
+
+Commands used:
+```
+python cs285/scripts/run_hw5_expl.py --env_name PointmassMedium-v0 --use_rnd \
+--num_exploration_steps=5000 --offline_exploitation --cql_alpha=0.1 \
+--unsupervised_exploration --exp_name q2_cql_numsteps_5000
+
+python cs285/scripts/run_hw5_expl.py --env_name PointmassMedium-v0 --use_rnd \
+--num_exploration_steps=8000 --offline_exploitation --cql_alpha=0.1 \
+--unsupervised_exploration --exp_name q2_cql_numsteps_8000
+
+python cs285/scripts/run_hw5_expl.py --env_name PointmassMedium-v0 --use_rnd \
+--num_exploration_steps=11000 --offline_exploitation --cql_alpha=0.1 \
+--unsupervised_exploration --exp_name q2_cql_numsteps_11000
+
+python cs285/scripts/run_hw5_expl.py --env_name PointmassMedium-v0 --use_rnd \
+--num_exploration_steps=14000 --offline_exploitation --cql_alpha=0.1 \
+--unsupervised_exploration --exp_name q2_cql_numsteps_14000
+
+python cs285/scripts/run_hw5_expl.py --env_name PointmassMedium-v0 --use_rnd \
+--num_exploration_steps=5000 --offline_exploitation --cql_alpha=0.0 \
+--unsupervised_exploration --exp_name q2_dqn_numsteps_5000
+
+python cs285/scripts/run_hw5_expl.py --env_name PointmassMedium-v0 --use_rnd \
+--num_exploration_steps=8000 --offline_exploitation --cql_alpha=0.0 \
+--unsupervised_exploration --exp_name q2_dqn_numsteps_8000
+
+python cs285/scripts/run_hw5_expl.py --env_name PointmassMedium-v0 --use_rnd \
+--num_exploration_steps=11000 --offline_exploitation --cql_alpha=0.0 \
+--unsupervised_exploration --exp_name q2_dqn_numsteps_11000
+
+python cs285/scripts/run_hw5_expl.py --env_name PointmassMedium-v0 --use_rnd \
+--num_exploration_steps=14000 --offline_exploitation --cql_alpha=0.0 \
+--unsupervised_exploration --exp_name q2_dqn_numsteps_14000
 ```
