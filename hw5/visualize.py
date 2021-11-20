@@ -352,3 +352,74 @@ plt.table(cellText=[vals],
 
 plt.savefig('plots/q2_alpha_table.png')
 plt.close()
+
+
+# Question 3 Hard
+logdirs = [
+'{}/hw5_expl_q3_hard_cql_PointmassHard-v0_19-11-2021_14-27-25/events*'.format(root_folder),
+'{}/hw5_expl_q3_hard_dqn_PointmassHard-v0_19-11-2021_13-50-56/events*'.format(root_folder),
+]
+
+labels = [
+    'Supervised CQL',
+    'Supervised DQN'
+]
+
+for logdir, label in zip(logdirs, labels):
+    eventfile = glob.glob(logdir)[0]
+
+    X, Y = get_section_results(eventfile)
+
+    plt.plot(X, Y, label=label)
+
+plt.title('Supervised CQL and DQN Eval Average Return for PointmassHard')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q3_hard.png')
+plt.close()
+
+
+# Question 3 Medium
+logdirs = [
+'{}/hw5_expl_q3_medium_cql_PointmassMedium-v0_19-11-2021_13-59-50/events*'.format(root_folder),
+'{}/hw5_expl_q3_medium_dqn_PointmassMedium-v0_19-11-2021_13-50-41/events*'.format(root_folder),
+'{}/hw5_expl_q2_cql_numsteps_10000_PointmassMedium-v0_19-11-2021_13-52-06/events*'.format(root_folder),
+'{}/hw5_expl_q2_dqn_numsteps_10000_PointmassMedium-v0_19-11-2021_13-52-17/events*'.format(root_folder),
+'{}/hw5_expl_q1_env2_rnd_PointmassMedium-v0_18-11-2021_17-00-26/events*'.format(root_folder),
+'{}/hw5_expl_q1_env2_random_PointmassMedium-v0_18-11-2021_17-00-37/events*'.format(root_folder)
+]
+
+labels = [
+    'Supervised CQL',
+    'Supervised DQN',
+    'Unsupervised CQL',
+    'Unsupervised DQN',
+    'Unsupervised RND',
+    'Unsupervised Random Exploration'
+]
+
+fig = plt.figure(1)
+ax = fig.add_subplot(111)
+
+for logdir, label in zip(logdirs, labels):
+    eventfile = glob.glob(logdir)[0]
+
+    X, Y = get_section_results(eventfile)
+
+    ax.plot(X, Y, label=label)
+
+plt.title('Various Methods vs. Eval Average Return for PointmassMedium')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+# plt.legend(bbox_to_anchor=(1.1, 1, 0.7, 0.7), loc="lower center")
+#plt.legend(bbox_to_anchor=(0, 1), loc='upper left', ncol=1)
+
+handles, labels = ax.get_legend_handles_labels()
+lgd = ax.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5,-0.1))
+
+# fig.subplots_adjust(bottom=0.7)
+plt.tight_layout()
+plt.savefig('plots/q3_medium.png', bbox_inches='tight')
+plt.close()
