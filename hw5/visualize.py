@@ -423,3 +423,123 @@ lgd = ax.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5,-0.1))
 plt.tight_layout()
 plt.savefig('plots/q3_medium.png', bbox_inches='tight')
 plt.close()
+
+
+# Question 4 AWAC Unsupervised Medium
+logdirs = [
+'{}/hw5_expl_q5_awac_medium_unsupervised_lam0.1_PointmassMedium-v0_19-11-2021_21-38-48/events*'.format(root_folder),
+'{}/hw5_expl_q5_awac_medium_unsupervised_lam1_PointmassMedium-v0_19-11-2021_21-38-54/events*'.format(root_folder),
+'{}/hw5_expl_q5_awac_medium_unsupervised_lam2_PointmassMedium-v0_19-11-2021_21-39-01/events*'.format(root_folder),
+'{}/hw5_expl_q5_awac_medium_unsupervised_lam10_PointmassMedium-v0_19-11-2021_21-39-08/events*'.format(root_folder)
+]
+
+labels = [
+    'Lambda 0.1',
+    'Lambda 1',
+    'Lambda 2',
+    'Lambda 10',
+]
+
+for logdir, label in zip(logdirs, labels):
+    eventfile = glob.glob(logdir)[0]
+
+    X, Y = get_section_results(eventfile)
+    plt.plot(X, Y, label=label)
+
+plt.title('Lambda vs. Eval Average Return for Unsupervised AWAC on PointmassMedium')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q4_unsup_medium.png')
+plt.close()
+
+
+# Question 4 AWAC Supervised Medium
+logdirs = [
+'{}/hw5_expl_q5_awac_medium_supervised_lam0.1_PointmassMedium-v0_19-11-2021_21-39-15/events*'.format(root_folder),
+'{}/hw5_expl_q5_awac_medium_supervised_lam1_PointmassMedium-v0_19-11-2021_21-39-22/events*'.format(root_folder),
+'{}/hw5_expl_q5_awac_medium_supervised_lam2_PointmassMedium-v0_19-11-2021_21-39-32/events*'.format(root_folder),
+'{}/hw5_expl_q5_awac_medium_supervised_lam10_PointmassMedium-v0_19-11-2021_21-39-40/events*'.format(root_folder)
+]
+
+labels = [
+    'Lambda 0.1',
+    'Lambda 1',
+    'Lambda 2',
+    'Lambda 10',
+]
+
+for logdir, label in zip(logdirs, labels):
+    eventfile = glob.glob(logdir)[0]
+
+    X, Y = get_section_results(eventfile)
+    plt.plot(X, Y, label=label)
+
+plt.title('Lambda vs. Eval Average Return for Supervised AWAC on PointmassMedium')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q4_sup_medium.png')
+plt.close()
+
+
+# Question 4 AWAC Unsupervised Easy
+logdirs = [
+'{}/hw5_expl_q5_awac_easy_unsupervised_lam0.1_PointmassEasy-v0_20-11-2021_01-36-08/events*'.format(root_folder),
+'{}/hw5_expl_q5_awac_easy_unsupervised_lam1_PointmassEasy-v0_20-11-2021_01-37-17/events*'.format(root_folder),
+'{}/hw5_expl_q5_awac_easy_unsupervised_lam2_PointmassEasy-v0_20-11-2021_01-36-14/events*'.format(root_folder),
+'{}/hw5_expl_q5_awac_easy_unsupervised_lam10_PointmassEasy-v0_20-11-2021_01-36-29/events*'.format(root_folder)
+]
+
+labels = [
+    'Lambda 0.1',
+    'Lambda 1',
+    'Lambda 2',
+    'Lambda 10',
+]
+
+for logdir, label in zip(logdirs, labels):
+    eventfile = glob.glob(logdir)[0]
+
+    X, Y = get_section_results(eventfile)
+    plt.plot(X, Y, label=label)
+
+plt.title('Lambda vs. Eval Average Return for Unsupervised AWAC on PointmassEasy')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q4_unsup_easy.png')
+plt.close()
+
+
+# Question 4 AWAC Supervised Easy
+logdirs = [
+'{}/hw5_expl_q5_awac_easy_supervised_lam0.1_PointmassEasy-v0_20-11-2021_01-38-22/events*'.format(root_folder),
+'{}/hw5_expl_q5_awac_easy_supervised_lam1_PointmassEasy-v0_20-11-2021_01-38-29/events*'.format(root_folder),
+'{}/hw5_expl_q5_awac_easy_supervised_lam2_PointmassEasy-v0_20-11-2021_01-38-37/events*'.format(root_folder),
+'{}/hw5_expl_q5_awac_easy_supervised_lam10_PointmassEasy-v0_20-11-2021_01-38-43/events*'.format(root_folder)
+]
+
+labels = [
+    'Lambda 0.1',
+    'Lambda 1',
+    'Lambda 2',
+    'Lambda 10',
+]
+
+for logdir, label in zip(logdirs, labels):
+    eventfile = glob.glob(logdir)[0]
+
+    X, Y = get_section_results(eventfile)
+    plt.plot(X, Y, label=label)
+
+plt.title('Lambda vs. Eval Average Return for Supervised AWAC on PointmassEasy')
+plt.xlabel('Iteration #')
+plt.ylabel('Average Return')
+plt.legend()
+
+plt.savefig('plots/q4_sup_easy.png')
+plt.close()
