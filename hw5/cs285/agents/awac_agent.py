@@ -51,10 +51,17 @@ class AWACAgent(DQNAgent):
 
     def get_qvals(self, critic, obs, action):
         # get q-value for a given critic, obs, and action
+        # TODO: verify that this is correct
+        q_value = critic.q_net(obs)[..., action]
         return q_value
 
     def estimate_advantage(self, ob_no, ac_na, re_n, next_ob_no, terminal_n, n_actions=10):
         # TODO convert to torch tensors
+        ob_no = ptu.from_numpy(ob_no)
+        ac_na = ptu.from_numpy(ac_na)
+        re_n = ptu.from_numpy(re_n)
+        next_ob_no = ptu.from_numpy(next_ob_no)
+        terminal_n = ptu.from_numpy(terminal_n)
 
         vals = []
         # TODO Calculate Value Function Estimate given current observation
@@ -62,16 +69,16 @@ class AWACAgent(DQNAgent):
         dist = None
         if self.agent_params['discrete']:
             for i in range(self.agent_params['ac_dim']):
-                pass
+                vals.append(self.get_qvals(self.exploitation_critic, ob_no, i))
         else:
             for _ in range(n_actions):
                 pass
-        v_pi = None
+        v_pi = torch.stack(vals).mean(dim=0)
 
         # TODO Calculate Q-Values
-        q_vals = None
+        q_vals = self.get_qvals(self.exploitation_critic, ob_no, ac_na)
         # TODO Calculate the Advantage        
-        return None
+        return q_vals - v_pi
 
     def train(self, ob_no, ac_na, re_n, next_ob_no, terminal_n):
         log = {}

@@ -120,3 +120,13 @@ python cs285/scripts/run_hw5_expl.py --env_name PointmassMedium-v0 --use_rnd \
 --num_exploration_steps=10000 --offline_exploitation --cql_alpha=0.0 \
 --unsupervised_exploration --exp_name q2_dqn_numsteps_10000
 ```
+
+
+## Question 4
+
+Commands used:
+```
+python cs285/scripts/run_hw5_awac.py --env_name PointmassMedium-v0 \
+--exp_name q5_awac_medium_unsupervised_lam0.1 --use_rnd \
+--unsupervised_exploration --awac_lambda=0.1 --num_exploration_steps=20000
+```
